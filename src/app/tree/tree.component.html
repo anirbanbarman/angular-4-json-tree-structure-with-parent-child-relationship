@@ -1,0 +1,33 @@
+
+<div style="display: flex" >
+<div style="flex: 1;    margin-left: 30px"  >
+<ul class="tree">
+  <ng-template #recursiveList let-list>
+    <li *ngFor="let item of list">
+      <button *ngIf="item.children.length > 0 &&  !item.showChild" (click)="OnbtnClick(item)">+</button>
+      <button *ngIf="item.children.length > 0 &&  item.showChild" (click)="OnbtnClick1(item)">-</button>
+      {{item.title}}
+      <input type="checkbox" *ngIf="!item.children.length > 0" id="checkbox" (click)="OncheckeboxClick(item.title,$event,item.map)">
+      <ul *ngIf="item.children.length > 0 && item.showChild" >
+        <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: item.children }"></ng-container>
+      </ul>
+    </li>
+  </ng-template>
+  <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: list }"></ng-container>
+</ul>
+</div>
+<div style="flex: 1">
+  <h4>you have checked</h4>
+  <ul>
+  <li *ngFor="let item of checkedItems">{{item}}</li>
+</ul>
+</div>
+<div style="flex: 1"> <h4>your parent-child-relationship</h4>
+  <ol>
+  <li *ngFor="let item of  parentChildRelationArray">
+    {{item}}
+  </li>
+  </ol>
+</div>
+</div>
+
